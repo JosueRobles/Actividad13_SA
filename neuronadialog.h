@@ -2,6 +2,7 @@
 #define NEURONADIALOG_H
 
 #include <QDialog>
+#include "widget.h"
 
 namespace Ui {
 class NeuronaDialog;
@@ -12,6 +13,7 @@ class NeuronaDialog : public QDialog
     Q_OBJECT
 
 public:
+
     explicit NeuronaDialog(QWidget *parent = nullptr);
     ~NeuronaDialog();
 

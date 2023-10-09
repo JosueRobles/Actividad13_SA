@@ -7,8 +7,24 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
-#include <QDir>
 #include <QTableWidget>
+
+void Widget::connClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+}
+
+bool Widget::connOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/Users/anama.DESKTOP-NLSIKUB/Desktop/6anamos/SeminarioAlgoritmia/QTableWidget/database.db");
+    if(!mydb.open()){
+        return false;
+    }else{
+        return true;
+    }
+}
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -16,6 +32,8 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("Neuronas");
+    connOpen();
+
     QStringList titulos;
     ui->tableWidget->setColumnCount(7);
     titulos << "ID" << "Voltaje" << "Posición en X" << "Posición en Y" << "Red" << "Green" << "Blue";
@@ -87,12 +105,60 @@ void Widget::on_agregarFinal_clicked()
 
 void Widget::on_guardar_clicked()
 {
-    //
+    Widget conn;
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    conn.connOpen();
+    QSqlQuery* qry=new QSqlQuery(conn.mydb);
+    qry->prepare("SELECT * FROM neurona");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView->setModel(modal);
+
+    conn.connClose();
+    qDebug() <<(modal->rowCount());
 }
 
 
 void Widget::on_recuperar_clicked()
 {
-    //
+    Widget conn;
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    conn.connOpen();
+    QSqlQuery* qry=new QSqlQuery(conn.mydb);
+    qry->prepare("SELECT * FROM neurona");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView->setModel(modal);
+
+    conn.connClose();
+    qDebug() <<(modal->rowCount());
+}
+
+
+void Widget::on_buscarId_textChanged(const QString &arg1)
+{
+    QString id=arg1;
+    connOpen();
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM neurona WHERE id='"+id+"'");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            ui->listWidget->clear();
+            ui->listWidget->insertItem(0,qry.value(0).toString());
+            ui->listWidget->insertItem(1,qry.value(1).toString());
+            ui->listWidget->insertItem(2,qry.value(2).toString());
+            ui->listWidget->insertItem(3,qry.value(3).toString());
+            ui->listWidget->insertItem(4,qry.value(4).toString());
+            ui->listWidget->insertItem(5,qry.value(5).toString());
+            ui->listWidget->insertItem(6,qry.value(6).toString());
+        }
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
 }
 

@@ -2,6 +2,14 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QDir>
+#include <QDebug>
+#include <QtGui>
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -10,6 +18,11 @@ QT_END_NAMESPACE
 class Widget : public QWidget
 {
     Q_OBJECT
+
+public:
+    QSqlDatabase mydb;
+    void connClose();
+    bool connOpen();
 
 public:
     Widget(QWidget *parent = nullptr);
@@ -23,6 +36,8 @@ private slots:
     void on_guardar_clicked();
 
     void on_recuperar_clicked();
+
+    void on_buscarId_textChanged(const QString &arg1);
 
 private:
     Ui::Widget *ui;

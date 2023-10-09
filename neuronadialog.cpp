@@ -1,5 +1,6 @@
 #include "neuronadialog.h"
 #include "ui_neuronadialog.h"
+#include <QMessageBox>
 
 NeuronaDialog::NeuronaDialog(QWidget *parent) :
     QDialog(parent),
@@ -15,6 +16,28 @@ NeuronaDialog::~NeuronaDialog()
 
 void NeuronaDialog::on_buttonBox_accepted()
 {
+    Widget conn;
+    QString id, voltaje, pos_x, pos_y, red, green, blue;
+    id=ui->id->text();
+    voltaje=ui->voltaje->text();
+    pos_x=QString::number(ui->pos_x->value());
+    pos_y=QString::number(ui->pos_y->value());
+    red=ui->red->text();
+    green=ui->green->text();
+    blue=ui->blue->text();
+
+    conn.connOpen();
+    QSqlQuery qry;
+    qry.prepare("INSERT INTO neurona (id,voltaje,pos_x,pos_y,red,green,blue) VALUES ('"+id+"','"+voltaje+"','"+pos_x+"','"+pos_y+"','"+red+"','"+green+"','"+blue+"')");
+    if(qry.exec())
+    {
+        QMessageBox::critical(this,tr("SAVE"),tr("Saved"));
+        conn.connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
     accept();
 }
 
