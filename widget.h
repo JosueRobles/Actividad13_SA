@@ -9,7 +9,8 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-
+#include <QtCore>
+#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -39,6 +40,8 @@ private slots:
 
     void on_buscarId_textChanged(const QString &arg1);
 
+    void escenas();
+
 private:
     Ui::Widget *ui;
 
@@ -46,5 +49,9 @@ private:
     {
         ID, VOLTAJE, POS_X, POS_Y, RED, GREEN, BLUE
     };
+
+    QGraphicsScene *esce;
+    QGraphicsEllipseItem *elip;
+    QGraphicsRectItem *rect;
 };
 #endif // WIDGET_H

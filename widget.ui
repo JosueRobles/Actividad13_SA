@@ -6,93 +6,148 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>804</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
-   <item>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>791</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Manejo de Neuronas</string>
+    </attribute>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>581</width>
+       <height>192</height>
+      </rect>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+    </widget>
+    <widget class="QTableView" name="tableView">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>207</y>
+       <width>581</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="agregarInicio">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>405</y>
+       <width>94</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Agregar al inicio</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="agregarFinal">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>88</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Agregar al final</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="guardar">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>10</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Guardar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="recuperar">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>210</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Recuperar</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="buscarId">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>350</y>
+       <width>108</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string extracomment="Buscar neurona por id"/>
+     </property>
+     <property name="placeholderText">
+      <string extracomment="Buscar neurona por id"/>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>595</x>
+       <y>380</y>
+       <width>181</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>QScene</string>
+    </attribute>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTableWidget" name="tableWidget">
-       <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
-       </property>
-       <property name="alternatingRowColors">
-        <bool>true</bool>
-       </property>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTableView" name="tableView"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="agregarInicio">
-         <property name="text">
-          <string>Agregar al inicio</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="agregarFinal">
-         <property name="text">
-          <string>Agregar al final</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="guardar">
-         <property name="text">
-          <string>Guardar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="recuperar">
-         <property name="text">
-          <string>Recuperar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="buscarId">
-         <property name="text">
-          <string extracomment="Buscar neurona por id"/>
-         </property>
-         <property name="placeholderText">
-          <string extracomment="Buscar neurona por id"/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="listWidget"/>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+      <widget class="QGraphicsView" name="graphicsView"/>
      </item>
     </layout>
-   </item>
-  </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>

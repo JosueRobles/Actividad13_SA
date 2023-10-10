@@ -38,6 +38,8 @@ Widget::Widget(QWidget *parent)
     ui->tableWidget->setColumnCount(7);
     titulos << "ID" << "Voltaje" << "Posición en X" << "Posición en Y" << "Red" << "Green" << "Blue";
     ui->tableWidget->setHorizontalHeaderLabels(titulos);
+
+    escenas();
 }
 
 Widget::~Widget()
@@ -141,11 +143,11 @@ void Widget::on_buscarId_textChanged(const QString &arg1)
     connOpen();
     QSqlQuery qry;
     qry.prepare("SELECT * FROM neurona WHERE id='"+id+"'");
+    ui->listWidget->clear();
     if(qry.exec())
     {
         while(qry.next())
         {
-            ui->listWidget->clear();
             ui->listWidget->insertItem(0,qry.value(0).toString());
             ui->listWidget->insertItem(1,qry.value(1).toString());
             ui->listWidget->insertItem(2,qry.value(2).toString());
@@ -162,3 +164,37 @@ void Widget::on_buscarId_textChanged(const QString &arg1)
     }
 }
 
+
+void Widget::escenas()
+{
+    connOpen();
+    esce = new QGraphicsScene(this);
+    ui->graphicsView->setScene(esce);
+
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM neurona");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            QBrush rgbBrush;
+            QPen rgbPen;
+            float vtj=qry.value(1).toFloat();
+            int px=qry.value(2).toInt();
+            int py=qry.value(3).toInt();
+            int r=qry.value(4).toInt();
+            int g=qry.value(5).toInt();
+            int b=qry.value(6).toInt();
+            QColor color(r,g,b);
+            rgbBrush.setColor(color);
+            rgbPen.setColor(color);
+            rgbPen.setWidth(1);
+            elip = esce->addEllipse(px,py,vtj,vtj,rgbPen,rgbBrush);
+        }
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
+}
