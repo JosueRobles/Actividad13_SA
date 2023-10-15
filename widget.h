@@ -42,6 +42,10 @@ private slots:
 
     void escenas();
 
+    void on_sortId_clicked();
+
+    void on_sortVoltaje_clicked();
+
 private:
     Ui::Widget *ui;
 

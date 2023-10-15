@@ -198,3 +198,33 @@ void Widget::escenas()
         QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
     }
 }
+
+void Widget::on_sortId_clicked()
+{
+    Widget conn;
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    conn.connOpen();
+    QSqlQuery* qry=new QSqlQuery(conn.mydb);
+    qry->prepare("SELECT * FROM neurona ORDER BY id ASC");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView->setModel(modal);
+
+    conn.connClose();
+}
+
+
+void Widget::on_sortVoltaje_clicked()
+{
+    Widget conn;
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    conn.connOpen();
+    QSqlQuery* qry=new QSqlQuery(conn.mydb);
+    qry->prepare("SELECT * FROM neurona ORDER BY voltaje DESC");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView->setModel(modal);
+
+    conn.connClose();
+}
+
