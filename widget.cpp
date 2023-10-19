@@ -228,3 +228,73 @@ void Widget::on_sortVoltaje_clicked()
     conn.connClose();
 }
 
+
+void Widget::on_mostrarPuntos_clicked()
+{
+    connOpen();
+    esce = new QGraphicsScene(this);
+    ui->graphicsView->setScene(esce);
+
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM neurona");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            QBrush rgbBrush;
+            QPen rgbPen;
+            int px=qry.value(2).toInt();
+            int py=qry.value(3).toInt();
+            int r=qry.value(4).toInt();
+            int g=qry.value(5).toInt();
+            int b=qry.value(6).toInt();
+            QColor color(r,g,b);
+            rgbBrush.setColor(color);
+            rgbPen.setColor(color);
+            rgbPen.setWidth(1);
+            elip = esce->addEllipse(px,py,1,1,rgbPen,rgbBrush);
+        }
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
+}
+
+
+void Widget::on_mostrarLineas_clicked()
+{
+    connOpen();
+    esce = new QGraphicsScene(this);
+    ui->graphicsView->setScene(esce);
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT * FROM neurona ORDER BY pos_x|pos_y ASC");
+    if(qry.exec())
+    {
+        QPen rgbPen;
+        rgbPen.setWidth(1);
+        int px1,px2,py1,py2, r,g,b;
+        px1=qry.value(2).toInt();
+        py1=qry.value(3).toInt();
+        while(qry.next()){
+            px2=qry.value(2).toInt();
+            py2=qry.value(3).toInt();
+            r=qry.value(4).toInt();
+            g=qry.value(5).toInt();
+            b=qry.value(6).toInt();
+            QColor color(r,g,b);
+            rgbPen.setColor(color);
+            line = esce->addLine(px1,py1,px2,py2,rgbPen);
+            px1=px2;
+            py1=py2;
+        }
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
+}

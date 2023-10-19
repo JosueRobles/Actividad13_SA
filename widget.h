@@ -46,6 +46,10 @@ private slots:
 
     void on_sortVoltaje_clicked();
 
+    void on_mostrarPuntos_clicked();
+
+    void on_mostrarLineas_clicked();
+
 private:
     Ui::Widget *ui;
 
@@ -56,6 +60,6 @@ private:
 
     QGraphicsScene *esce;
     QGraphicsEllipseItem *elip;
-    QGraphicsRectItem *rect;
+    QGraphicsLineItem *line;
 };
 #endif // WIDGET_H

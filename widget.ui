@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -170,6 +170,20 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGraphicsView" name="graphicsView"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mostrarPuntos">
+       <property name="text">
+        <string>Mostrar sólo ́los puntos (x, y) de las neuronas</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mostrarLineas">
+       <property name="text">
+        <string>Mostrar las líneas dibujadas a sus puntos más cercanos</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
