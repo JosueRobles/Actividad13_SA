@@ -14,7 +14,10 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    arista.h \
+    grafo.h \
     neuronadialog.h \
+    nodo.h \
     widget.h
 
 FORMS += \

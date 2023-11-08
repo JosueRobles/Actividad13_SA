@@ -11,6 +11,8 @@
 #include <QSqlQuery>
 #include <QtCore>
 #include <QGraphicsScene>
+#include <QGraphicsTextItem>
+//#include <grafo.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -61,5 +63,6 @@ private:
     QGraphicsScene *esce;
     QGraphicsEllipseItem *elip;
     QGraphicsLineItem *line;
+    QGraphicsTextItem *text;
 };
 #endif // WIDGET_H

@@ -8,6 +8,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QTableWidget>
+#include <math.h>
 
 void Widget::connClose()
 {
@@ -243,6 +244,7 @@ void Widget::on_mostrarPuntos_clicked()
         {
             QBrush rgbBrush;
             QPen rgbPen;
+            QString id=qry.value(0).toString();
             int px=qry.value(2).toInt();
             int py=qry.value(3).toInt();
             int r=qry.value(4).toInt();
@@ -252,6 +254,8 @@ void Widget::on_mostrarPuntos_clicked()
             rgbBrush.setColor(color);
             rgbPen.setColor(color);
             rgbPen.setWidth(1);
+            text=esce->addText(id);
+            text->setPos(px-6,py-6);
             elip = esce->addEllipse(px,py,1,1,rgbPen,rgbBrush);
         }
         connClose();
@@ -268,6 +272,12 @@ void Widget::on_mostrarLineas_clicked()
     connOpen();
     esce = new QGraphicsScene(this);
     ui->graphicsView->setScene(esce);
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    QSqlQuery* qury=new QSqlQuery(mydb);
+    qury->prepare("SELECT pos_x,pos_y FROM neurona ORDER BY pos_x|pos_y ASC");
+    qury->exec();
+    modal->setQuery(*qury);
+    ui->tableAdy->setModel(modal);
 
     QSqlQuery qry;
 
@@ -277,9 +287,15 @@ void Widget::on_mostrarLineas_clicked()
         QPen rgbPen;
         rgbPen.setWidth(1);
         int px1,px2,py1,py2, r,g,b;
+        QString id;
+        float peso;
+        id=qry.value(0).toString();
         px1=qry.value(2).toInt();
         py1=qry.value(3).toInt();
+        text=esce->addText(id);
+        text->setPos(px1-6,py1-6);
         while(qry.next()){
+            id=qry.value(0).toString();
             px2=qry.value(2).toInt();
             py2=qry.value(3).toInt();
             r=qry.value(4).toInt();
@@ -287,7 +303,13 @@ void Widget::on_mostrarLineas_clicked()
             b=qry.value(6).toInt();
             QColor color(r,g,b);
             rgbPen.setColor(color);
+            text=esce->addText(id);
+            text->setPos(px2-6,py2-6);
             line = esce->addLine(px1,py1,px2,py2,rgbPen);
+            peso=sqrt(((px2-px1)*(px2-px1))+((py2-py1)*(py2-py1)));
+            text=esce->addText(QString::number(peso));
+            text->setPos(px2-px1,py2-py1);
+            text->setDefaultTextColor(color);
             px1=px2;
             py1=py2;
         }

@@ -16,8 +16,8 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>10</x>
+     <y>10</y>
      <width>791</width>
      <height>611</height>
     </rect>
@@ -167,25 +167,52 @@
     <attribute name="title">
      <string>QScene</string>
     </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QGraphicsView" name="graphicsView"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mostrarPuntos">
-       <property name="text">
-        <string>Mostrar sólo ́los puntos (x, y) de las neuronas</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mostrarLineas">
-       <property name="text">
-        <string>Mostrar las líneas dibujadas a sus puntos más cercanos</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGraphicsView" name="graphicsView">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>581</width>
+       <height>501</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mostrarPuntos">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>518</y>
+       <width>246</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Mostrar sólo ́los puntos (x, y) de las neuronas</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mostrarLineas">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>548</y>
+       <width>297</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Mostrar las líneas dibujadas a sus puntos más cercanos</string>
+     </property>
+    </widget>
+    <widget class="QTableView" name="tableAdy">
+     <property name="geometry">
+      <rect>
+       <x>595</x>
+       <y>10</y>
+       <width>181</width>
+       <height>501</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
