@@ -14,6 +14,7 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    algoritmos.h \
     arista.h \
     grafo.h \
     neuronadialog.h \

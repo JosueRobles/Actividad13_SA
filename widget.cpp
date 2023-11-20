@@ -149,13 +149,13 @@ void Widget::on_buscarId_textChanged(const QString &arg1)
     {
         while(qry.next())
         {
-            ui->listWidget->insertItem(0,qry.value(0).toString());
-            ui->listWidget->insertItem(1,qry.value(1).toString());
-            ui->listWidget->insertItem(2,qry.value(2).toString());
-            ui->listWidget->insertItem(3,qry.value(3).toString());
-            ui->listWidget->insertItem(4,qry.value(4).toString());
-            ui->listWidget->insertItem(5,qry.value(5).toString());
-            ui->listWidget->insertItem(6,qry.value(6).toString());
+            ui->listWidget->insertItem(0,"ID: "+qry.value(0).toString());
+            ui->listWidget->insertItem(1,"Voltaje: "+qry.value(1).toString());
+            ui->listWidget->insertItem(2,"Pos. en x: "+qry.value(2).toString());
+            ui->listWidget->insertItem(3,"Pos. en y: "+qry.value(3).toString());
+            ui->listWidget->insertItem(4,"Red: "+qry.value(4).toString());
+            ui->listWidget->insertItem(5,"Green: "+qry.value(5).toString());
+            ui->listWidget->insertItem(6,"Blue: "+qry.value(6).toString());
         }
         connClose();
     }
@@ -272,13 +272,6 @@ void Widget::on_mostrarLineas_clicked()
     connOpen();
     esce = new QGraphicsScene(this);
     ui->graphicsView->setScene(esce);
-    QSqlQueryModel * modal=new QSqlQueryModel();
-    QSqlQuery* qury=new QSqlQuery(mydb);
-    qury->prepare("SELECT pos_x,pos_y FROM neurona ORDER BY pos_x|pos_y ASC");
-    qury->exec();
-    modal->setQuery(*qury);
-    ui->tableAdy->setModel(modal);
-
     QSqlQuery qry;
 
     qry.prepare("SELECT * FROM neurona ORDER BY pos_x|pos_y ASC");
@@ -310,6 +303,54 @@ void Widget::on_mostrarLineas_clicked()
             text=esce->addText(QString::number(peso));
             text->setPos(px2-px1,py2-py1);
             text->setDefaultTextColor(color);
+            px1=px2;
+            py1=py2;
+        }
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("ERROR"),qry.lastError().text());
+    }
+}
+
+void Widget::on_busquedaAmplitud_clicked()
+{
+    connOpen();
+    esce = new QGraphicsScene(this);
+    ui->graphicsView->setScene(esce);
+    QSqlQuery qry;
+
+    qry.prepare("SELECT * FROM neurona ORDER BY pos_x|pos_y ASC");
+    if(qry.exec())
+    {
+        QPen rgbPen;
+        rgbPen.setWidth(4);
+        int px1,px2,py1,py2;
+        QString id1,id2;
+        float peso;
+        ui->plainTextEdit->insertPlainText("Lista Visitados");
+        id1=qry.value(0).toString();
+        px1=qry.value(2).toInt();
+        py1=qry.value(3).toInt();
+        text=esce->addText(id1);
+        text->setPos(px1-6,py1-6);
+        ui->plainTextEdit->appendPlainText(id1);
+        while(qry.next()){
+            id2=qry.value(0).toString();
+            px2=qry.value(2).toInt();
+            py2=qry.value(3).toInt();
+            QColor color(1,250,1);
+            rgbPen.setColor(color);
+            ui->plainTextEdit->appendPlainText(id2);
+            text=esce->addText(id2);
+            text->setPos(px2-6,py2-6);
+            line = esce->addLine(px1,py1,px2,py2,rgbPen);
+            peso=sqrt(((px2-px1)*(px2-px1))+((py2-py1)*(py2-py1)));
+            text=esce->addText(QString::number(peso));
+            text->setPos(px2-px1,py2-py1);
+            text->setDefaultTextColor(color);
+            id1=id2;
             px1=px2;
             py1=py2;
         }

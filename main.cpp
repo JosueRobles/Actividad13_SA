@@ -1,6 +1,9 @@
 #include "widget.h"
 
 #include <QApplication>
+#include <map>
+#include <vector>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {

@@ -12,7 +12,8 @@
 #include <QtCore>
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
-//#include <grafo.h>
+//#include "grafo.h"
+//#include "algoritmos.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -51,6 +52,8 @@ private slots:
     void on_mostrarPuntos_clicked();
 
     void on_mostrarLineas_clicked();
+
+    void on_busquedaAmplitud_clicked();
 
 private:
     Ui::Widget *ui;

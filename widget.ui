@@ -203,14 +203,27 @@
       <string>Mostrar las líneas dibujadas a sus puntos más cercanos</string>
      </property>
     </widget>
-    <widget class="QTableView" name="tableAdy">
+    <widget class="QPlainTextEdit" name="plainTextEdit">
      <property name="geometry">
       <rect>
-       <x>595</x>
+       <x>590</x>
        <y>10</y>
-       <width>181</width>
+       <width>191</width>
        <height>501</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="busquedaAmplitud">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>520</y>
+       <width>181</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Búsqueda en amplitud</string>
      </property>
     </widget>
    </widget>
